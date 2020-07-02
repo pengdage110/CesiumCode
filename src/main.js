@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Helpers from './router/Helpers'
 
 Vue.config.productionTip = false
+Vue.prototype.$Helpers = Helpers
 
 /* eslint-disable no-new */
 new Vue({
