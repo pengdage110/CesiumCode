@@ -8,8 +8,10 @@
 </template>
 
 <script>
+import leftnavmixin from "@/minixs/LeftNavMinix"
 export default {
   name: "leftnav",
+  mixins: [leftnavmixin],
   data() {
     return {
       navList: [],
@@ -17,22 +19,29 @@ export default {
     };
   },
   created() {
-    this.setNavList()
+    this.setNavList();
   },
 
   methods: {
     switchNavName(name) {
-        if(this.navName===name){
-            this.navName=''
-            return
-        }
-        this.navName = name;
-        switch(name){
-            case "距离测量":
-            break;
-            case "面积测量":
-            break;
-        }
+      if (this.navName === name) {
+        this.navName = "";
+        //取消点选功能状态
+        this.UnSelect();
+        return;
+      }
+      this.navName = name;
+      switch (name) {
+        case "距离测量":
+      
+          break;
+        case "面积测量":
+       
+          break;
+        case "点击查询":
+          this.featureSelcet();
+          break;
+      }
     },
     setNavList() {
       this.navList = [
@@ -45,6 +54,11 @@ export default {
           name: "面积测量",
           icon: "static/images/acreage-test-icon.svg",
           icona: "static/images/acreage-test-icon-a.svg"
+        },
+        {
+          name: "点击查询",
+          icon: "static/images/select1.png",
+          icona: "static/images/select2.png"
         }
       ];
     }
@@ -54,30 +68,30 @@ export default {
 
 <style>
 .leftnav-box {
-    position: absolute;
-    top: 62px;
+  position: absolute;
+  top: 62px;
 }
 
 .leftnav {
-    left: 7.5px;
+  left: 7.5px;
 }
 
 .leftnav-item {
-    width: 50px;
-    font-size: 12px;
-    padding-top: 10px;
-    text-align: center;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.7);
+  width: 50px;
+  font-size: 12px;
+  padding-top: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .leftnav-item img {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 }
 
 .leftnav-txt {
-    line-height: 18px;
+  line-height: 18px;
 }
 </style>
 
