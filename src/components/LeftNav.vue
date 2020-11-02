@@ -9,9 +9,10 @@
 
 <script>
 import leftnavmixin from "@/minixs/LeftNavMinix"
+import measureminix from "@/minixs/MeasureMinix"
 export default {
   name: "leftnav",
-  mixins: [leftnavmixin],
+  mixins: [leftnavmixin,measureminix],
   data() {
     return {
       navList: [],
@@ -33,7 +34,7 @@ export default {
       this.navName = name;
       switch (name) {
         case "距离测量":
-      
+          this.measureLineSpace(this.$Helpers.viewer);      
           break;
         case "面积测量":
        
