@@ -3,14 +3,14 @@ export default {
         return {
             name: 'leftnavminix',
             //viewer.screenSpaceEventHandler销毁后暂时不知道怎么重新初始化，用自定义Handler也是个很好的办法
-            eventHandler:null
+            eventHandler: null
         }
     },
-    methods: {       
+    methods: {
         //点击选择
         featureSelcet() {
-            var viewer = this.$Helpers.viewer;            
-            if(this.eventHandler==null||this.eventHandler.isDestroyed()){
+            var viewer = this.$Helpers.viewer;
+            if (this.eventHandler == null || this.eventHandler.isDestroyed()) {
                 this.eventHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
             }
             var selected = {
@@ -44,7 +44,7 @@ export default {
                 this.eventHandler.setInputAction(function onMouseMove(movement) {
                     silhouetteGreen.selected = [];
                     var pickedFeature = viewer.scene.pick(movement.endPosition);
-                    if(pickedFeature==null)return;
+                    if (pickedFeature == null) return;
                     //1、将选中对象赋值给边缘渲染对象  -- 边缘渲染有明显的视角问题             
                     // if (pickedFeature !== selected.feature) {
                     //     silhouetteGreen.selected = [pickedFeature];
@@ -88,8 +88,39 @@ export default {
         },
 
         //取消选择状态
-        UnSelect(){           
-            this.eventHandler.destroy();
+        UnSelect() {
+            if (this.eventHandler) {
+                this.eventHandler.destroy();
+            }
+            this.autoRotate(false);
+        },
+
+        //开启场景旋转,当视角低于height时停止旋转
+        //此方法适应于地球的开场高空动画，稍微修改可用于绕轴自旋转
+        autoRotate(isRotate, height) {
+            let viewer = this.$Helpers.viewer;
+            let i = Date.now();
+            function rotate() {
+                let t = Date.now();
+                let n = (t - i) / 1e3;
+                i = t;
+                viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, -0.1 * n);
+            }
+            function cameraChange() {
+                const currentH = Math.ceil(viewer.camera.positionCartographic.height);//取整数
+                if (currentH < height) {
+                    viewer.clock.onTick.removeEventListener(rotate);
+                } else {
+                    viewer.clock.onTick.addEventListener(rotate);
+                }
+            }
+            if (isRotate) {
+                viewer.clock.onTick.addEventListener(rotate);
+                viewer.camera.changed.addEventListener(cameraChange)
+            } else {
+                let a = viewer.clock.onTick.removeEventListener(rotate);
+                let b = viewer.camera.changed.removeEventListener(cameraChange);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-import { GroundPolylinePrimitive } from "Cesium";
+// import { GroundPolylinePrimitive } from "Cesium";
 
 /**
  * 测量工具类
