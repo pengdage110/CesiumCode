@@ -16,6 +16,6 @@ export default new Router({
       path:"/leftnav",
       name:"leftnav",
       component:leftnav
-    }
+    },
   ]
 })

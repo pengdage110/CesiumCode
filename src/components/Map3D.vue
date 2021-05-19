@@ -33,7 +33,7 @@ export default {
         fullscreenButton: false,
         vrButton: false,
         infoBox: false,
-        shouldAnimate: true,
+        shouldAnimate: false,
         selectionIndicator: false,
         clampToGround: true,
         baseLayerPicker: false,

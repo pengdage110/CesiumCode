@@ -9,6 +9,7 @@
       <img :src="navName == obj.name ? obj.icona : obj.icon" alt="" />
       <div>{{ obj.name }}</div>
     </div>
+    <video-overlay v-if="showVideo" />
   </div>
 </template>
 
@@ -19,13 +20,17 @@ import measure from "@/minixs/demo.js";
 import scanFunc from "@/map3d/circleScanHelper.js";
 import cesiumODLine from "@/map3d/utils/ODLine.js";
 import { PrimitiveTexture } from "@/map3d/utils/voidTexture.js";
+import videoOverlay from "@/components/VideoOverlay"
+import VideoOverlay from './VideoOverlay.vue';
 export default {
+  components: { VideoOverlay },
   name: "leftnav",
   mixins: [leftnavmixin, measureminix],
   data() {
     return {
       navList: [],
       navName: "",
+      showVideo:false
     };
   },
   created() {
@@ -43,6 +48,9 @@ export default {
         this.UnSelect();
         if (name === "交通车流") {
           this.$Helpers.viewer.scene.primitives.removeAll();
+        }
+        if(name==="视频投影"){
+          this.showVideo = false;
         }
         return;
       }
@@ -86,7 +94,8 @@ export default {
           cesiumODLine.loadLinesData(this.$Helpers.viewer);
           break;
         case "视频投影":
-          this.setVoidTexture();
+          //this.setVoidTexture();
+          this.showVideo = true;
           break;
       }
     },

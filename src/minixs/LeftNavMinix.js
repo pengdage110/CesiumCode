@@ -121,6 +121,6 @@ export default {
                 let a = viewer.clock.onTick.removeEventListener(rotate);
                 let b = viewer.camera.changed.removeEventListener(cameraChange);
             }
-        }
+        },       
     }
 }
