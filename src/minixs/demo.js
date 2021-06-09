@@ -23,8 +23,9 @@ export default {
       // tooltip.style.top = movement.endPosition.y - 25 + "px";
       // tooltip.innerHTML = '<p>单击开始，右击结束</p>';
       // cartesian = viewer.scene.pickPosition(movement.endPosition);
-      let ray = viewer.camera.getPickRay(movement.endPosition);
-      cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      // let ray = viewer.camera.getPickRay(movement.endPosition);
+      // cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      cartesian = viewer.scene.pickPosition(movement.endPosition);
       //cartesian = viewer.scene.camera.pickEllipsoid(movement.endPosition, viewer.scene.globe.ellipsoid);
       if (positions.length >= 2) {
         if (!Cesium.defined(poly)) {
@@ -44,8 +45,9 @@ export default {
       // tooltip.style.display = "none";
       // cartesian = viewer.scene.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid);
       // cartesian = viewer.scene.pickPosition(movement.position);
-      let ray = viewer.camera.getPickRay(movement.position);
-      cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      // let ray = viewer.camera.getPickRay(movement.position);
+      // cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      cartesian = viewer.scene.pickPosition(movement.position)
       if (positions.length == 0) {
         positions.push(cartesian.clone());
       }
@@ -93,7 +95,7 @@ export default {
             positions: [],
             material: Cesium.Color.CHARTREUSE,
             width: 10,
-            clampToGround: true
+            clampToGround: false
           }
         };
         this.positions = positions;
@@ -152,8 +154,9 @@ measureAreaSpace(viewer, handler){
         // tooltip.style.top = movement.endPosition.y - 25 + "px";
     // tooltip.innerHTML ='<p>单击开始，右击结束</p>';
         // cartesian = viewer.scene.pickPosition(movement.endPosition); 
-      let ray = viewer.camera.getPickRay(movement.endPosition);
-      cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      // let ray = viewer.camera.getPickRay(movement.endPosition);
+      // cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      cartesian = viewer.scene.pickPosition(movement.endPosition);
         //cartesian = viewer.scene.camera.pickEllipsoid(movement.endPosition, viewer.scene.globe.ellipsoid);
         if(positions.length >= 2){
             if (!Cesium.defined(polygon)) {
@@ -170,8 +173,9 @@ measureAreaSpace(viewer, handler){
     handler.setInputAction(function(movement){
         // tooltip.style.display = "none";
         // cartesian = viewer.scene.pickPosition(movement.position); 
-      let ray = viewer.camera.getPickRay(movement.position);
-      cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      // let ray = viewer.camera.getPickRay(movement.position);
+      // cartesian = viewer.scene.globe.pick(ray, viewer.scene);
+      cartesian = viewer.scene.pickPosition(movement.position);
         // cartesian = viewer.scene.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid);
         if(positions.length == 0) {
             positions.push(cartesian.clone());

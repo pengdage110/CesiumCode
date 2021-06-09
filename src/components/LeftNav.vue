@@ -57,7 +57,7 @@ export default {
       this.navName = name;
       switch (name) {
         case "距离测量":
-          measure.measureLineSpace(this.$Helpers.viewer);
+          measure.measureLineSpace(this.$Helpers.viewer);         
           break;
         case "面积测量":
           measure.measureAreaSpace(this.$Helpers.viewer);
